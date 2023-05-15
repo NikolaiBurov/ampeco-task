@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: 'shouts.dev/laravel'
+    container_name: bitcoin-tracker
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - laravel-shouts
+    depends_on:
+      - db
+  db:
+    build:
+      context: ./.docker/db/.
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      POSTGRES_DB: 'bitcoin-tracker'
+      POSTGRES_USER: 'test'
+      POSTGRES_PASSWORD: '1234'
+    ports:
+      - "5434:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+    networks:
+      - laravel-shouts
+volumes:
+  db-data:
+
+networks:
+  laravel-shouts:
+    driver: bridge
