@@ -20,6 +20,7 @@ services:
       context: ./.docker/db/.
       dockerfile: Dockerfile
     restart: always
+    container_name: tracker-db
     environment:
       POSTGRES_DB: 'bitcoin-tracker'
       POSTGRES_USER: 'test'

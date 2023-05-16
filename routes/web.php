@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/user', [\App\Http\Controllers\Controller::class, 'base']);
+Route::get('/', [\App\Http\Controllers\ChartController::class,'index']);
 
 
