@@ -9,7 +9,7 @@ This is a guide on how to download and set up the the project using Docker. Foll
 1.Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/example/repository.git
+git clone https://github.com/NikolaiBurov/ampeco-task/
 ```
 
 2.Get into the folder and start building the containers
