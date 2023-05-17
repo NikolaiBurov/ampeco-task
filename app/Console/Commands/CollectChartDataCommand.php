@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Http\Services\ApiClient;
-use App\Http\Services\Serializer;
 use App\Models\CryptoSymbol;
 use App\Repositories\ChartMetricRepository;
 use App\Repositories\CryptoSymbolsRepository;
+use App\Repositories\PriceNotificationRepository;
+use App\Services\ApiClient;
+use App\Services\PriceNotificationService;
+use App\Services\Serializer;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 
 class CollectChartDataCommand extends Command
 {
@@ -32,7 +35,9 @@ class CollectChartDataCommand extends Command
     public function __construct(
         private readonly Serializer $serializer,
         private readonly CryptoSymbolsRepository $cryptoSymbolsRepository,
-        private readonly ChartMetricRepository $chartMetricRepository
+        private readonly ChartMetricRepository $chartMetricRepository,
+        private readonly PriceNotificationService $priceNotificationService,
+        private readonly PriceNotificationRepository $priceNotificationRepository
     ) {
         parent::__construct();
     }
@@ -45,8 +50,15 @@ class CollectChartDataCommand extends Command
         try {
             $cryptoSymbol = $this->cryptoSymbolsRepository->findSymbolByName(CryptoSymbol::BTCN_SYMBOL);
             $lastOrder = ApiClient::getLastOrderBySymbol($cryptoSymbol->name);
-
             $data = $this->serializer->deserializeToDTO($lastOrder);
+
+            $notificationsExceedingPriceQuery = $this->priceNotificationRepository->getNotificationsExceedingPriceQuery(
+                $data->getPrice()
+            );
+
+            if ($notificationsExceedingPriceQuery->exists()) {
+                $this->priceNotificationService->sendEmails($notificationsExceedingPriceQuery->get());
+            }
 
             $this->chartMetricRepository->save($data, $cryptoSymbol);
         } catch (\Exception $e) {

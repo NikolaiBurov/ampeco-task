@@ -15,6 +15,19 @@ services:
       - laravel-shouts
     depends_on:
       - db
+  redis:
+    image: redis:alpine
+    ports:
+      - "6380:6379"
+    networks:
+      - laravel-shouts
+  mailcatcher:
+    image: schickling/mailcatcher:latest
+    ports:
+      - "8003:1025"
+      - "8100:1080"
+    networks:
+      - laravel-shouts
   db:
     build:
       context: ./.docker/db/.
