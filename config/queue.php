@@ -106,4 +106,5 @@ return [
         'table' => 'failed_jobs',
     ],
 
+    'queue' => 'default'
 ];
