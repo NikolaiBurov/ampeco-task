@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PriceNotificationPostRequest;
-use App\Http\Services\ChartService;
-use App\Http\Services\PriceNotificationService;
+use App\Services\ChartService;
+use App\Services\PriceNotificationService;
 use App\Models\CryptoSymbol;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;

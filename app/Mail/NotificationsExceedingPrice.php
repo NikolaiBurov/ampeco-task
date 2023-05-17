@@ -28,7 +28,7 @@ class NotificationsExceedingPrice extends Mailable
     {
         return new Envelope(
             from: config('mail.from.address'),
-            subject: 'Notifications Exceeding Price',
+            subject: 'Bitcoin Exceeding given price',
         );
     }
 
