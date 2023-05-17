@@ -13,6 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\ChartController::class,'index']);
-
-
+Route::get('/', [\App\Http\Controllers\ChartController::class, 'index'])->name('charts.index');
+Route::post('/create-price-notification', [\App\Http\Controllers\ChartController::class, 'createPriceNotification'])->name('charts.create-price-notification');

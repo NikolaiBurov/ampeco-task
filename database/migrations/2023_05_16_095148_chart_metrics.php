@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('chart_metrics', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('crypto_symbol_id');
-            $table->double('price');
+            $table->decimal('price', 8, 2);
             $table->timestamp('created_at');
 
             $table->foreign('crypto_symbol_id')
