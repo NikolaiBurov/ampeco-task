@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('price_notifications', function (Blueprint $table) {
             $table->id();
             $table->string('email');
-            $table->decimal('price_limit', 8, 2);
+            $table->decimal('price_limit', 16, 3);
             $table->timestamps();
         });
     }
