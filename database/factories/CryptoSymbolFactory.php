@@ -1,39 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
-use App\Models\ChartMetric;
 use App\Models\CryptoSymbol;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ChartMetricFactory extends Factory
+class CryptoSymbolFactory extends Factory
 {
-    protected $model = ChartMetric::class;
+    protected $model = CryptoSymbol::class;
 
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         return [
-            'price' => $this->faker->randomFloat(),
-            'crypto_symbol_id' => 1,
+            'name' => CryptoSymbol::BTCN_SYMBOL,
             'created_at' => Carbon::now(),
         ];
     }
 
-    public function withPrice(float $price): static
+    public function withName(string $name): static
     {
         return $this->state(
             fn(array $attributes): array => [
-                'price' => $price,
-            ],
-        );
-    }
-
-    public function withCryptoSymbol(CryptoSymbol $symbol): static
-    {
-        return $this->state(
-            fn(array $attributes): array => [
-                'crypto_symbol_id' => $symbol->id,
+                'name' => $name,
             ],
         );
     }

@@ -22,8 +22,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (Schema::hasTable('crypto_symbols')) {
-            Artisan::call('db:seed', ['--class' => 'CryptoSymbolSeeder']);
-        }
     }
 }
