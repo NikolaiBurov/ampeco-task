@@ -44,3 +44,5 @@ Open http://bitcoin-tracker.localhost/ to get to the project main page
 
 To test the project mail functionality, you can open MailCatcher on http://localhost:8100/ in your web browser. This allows you to view the sent emails and verify their content.
 
+Run Tests from within the container with vendor/bin/phpunit command.
+
