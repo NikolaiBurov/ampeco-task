@@ -25,7 +25,7 @@ class ApiClientTest extends TestCase
         $result = ApiClient::getLastOrderBySymbol(CryptoSymbol::BTCN_SYMBOL);
 
         Http::assertSent(function ($request) {
-            return $request->url() === ApiClient::BIT_FINEX_API_URL . CryptoSymbol::BTCN_SYMBOL;
+            return $request->url() === sprintf('%s%s', ApiClient::BIT_FINEX_API_URL, CryptoSymbol::BTCN_SYMBOL);
         });
 
         $this->assertSame($responseBody, $result);
